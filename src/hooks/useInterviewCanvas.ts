@@ -167,7 +167,7 @@ export function useInterviewCanvas(
             type: "update",
             id,
             patch: Object.fromEntries(
-              Object.keys(patch).map((key) => [key, (previous as Record<string, unknown>)[key]]),
+              Object.keys(patch).map((key) => [key, (previous as unknown as Record<string, unknown>)[key]]),
             ) as Partial<CanvasElement>,
             at: Date.now() + 1,
           }
