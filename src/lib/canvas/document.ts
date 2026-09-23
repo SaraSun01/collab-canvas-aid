@@ -110,7 +110,9 @@ export function applyEnvelopes(
 }
 
 export function orderedElements(doc: CanvasDoc): CanvasElement[] {
-  return doc.order.map((id) => doc.elements[id]).filter(Boolean);
+  return doc.order
+    .map((id) => doc.elements[id])
+    .filter((el): el is CanvasElement => Boolean(el));
 }
 
 export interface Box {
@@ -180,6 +182,7 @@ export function hitTest(doc: CanvasDoc, point: { x: number; y: number }): Canvas
   const els = orderedElements(doc);
   for (let i = els.length - 1; i >= 0; i--) {
     const el = els[i];
+    if (!el) continue;
     const box = elementBounds(doc, el);
     if (!box) continue;
     const pad = el.kind === "connector" || el.kind === "stroke" ? 8 : 0;
