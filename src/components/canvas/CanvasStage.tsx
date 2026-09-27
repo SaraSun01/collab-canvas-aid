@@ -141,6 +141,14 @@ export function CanvasStage(props: CanvasStageProps) {
     });
   }, [doc]);
 
+  const didFit = useRef(false);
+  useEffect(() => {
+    if (didFit.current || doc.order.length === 0) return;
+    didFit.current = true;
+    zoomToFit();
+  }, [doc, zoomToFit]);
+
+
   const createAt = useCallback(
     (world: { x: number; y: number }) => {
       if (!canEdit) return;
