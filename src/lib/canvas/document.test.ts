@@ -20,8 +20,8 @@ describe("canvas document", () => {
     const u2 = { type: "update" as const, id: "a", patch: { label: "two" }, at: 20 };
     const x = applyOperation(applyOperation(base, u1), u2);
     const y = applyOperation(applyOperation(base, u2), u1);
-    expect((x.elements.a as NodeElement).label).toBe("two");
-    expect((y.elements.a as NodeElement).label).toBe("two");
+    expect((x.elements["a"] as NodeElement).label).toBe("two");
+    expect((y.elements["a"] as NodeElement).label).toBe("two");
   });
 
   it("cascades deletes to connectors", () => {
@@ -36,7 +36,7 @@ describe("canvas document", () => {
       },
     });
     doc = applyOperation(doc, { type: "delete", ids: ["a"] });
-    expect(doc.elements.c).toBeUndefined();
+    expect(doc.elements["c"]).toBeUndefined();
     expect(doc.order).toEqual(["b"]);
   });
 

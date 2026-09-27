@@ -205,7 +205,7 @@ export function CanvasStage(props: CanvasStageProps) {
     const world = toWorld(event.clientX, event.clientY);
     const hit = hitTest(doc, world);
 
-    if (tool === "pan" || event.button === 1 || event.shiftKey === false && tool === "pan") {
+    if (tool === "pan" || event.button === 1) {
       drag.current = { mode: "pan", startX: event.clientX, startY: event.clientY, origin: viewport };
       return;
     }
