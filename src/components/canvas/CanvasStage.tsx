@@ -418,7 +418,7 @@ export function CanvasStage(props: CanvasStageProps) {
     tool === "pan" ? "grab" : tool === "select" ? "default" : tool === "eraser" ? "crosshair" : "crosshair";
 
   return (
-    <div className="relative flex-1 canvas-grid bg-paper">
+    <div className="relative h-full w-full overflow-hidden canvas-grid bg-paper">
       <svg
         ref={svgRef}
         role="application"
