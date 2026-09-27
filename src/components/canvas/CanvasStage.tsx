@@ -141,6 +141,14 @@ export function CanvasStage(props: CanvasStageProps) {
     });
   }, [doc]);
 
+  const didFit = useRef(false);
+  useEffect(() => {
+    if (didFit.current || doc.order.length === 0) return;
+    didFit.current = true;
+    zoomToFit();
+  }, [doc, zoomToFit]);
+
+
   const createAt = useCallback(
     (world: { x: number; y: number }) => {
       if (!canEdit) return;
@@ -205,7 +213,7 @@ export function CanvasStage(props: CanvasStageProps) {
     const world = toWorld(event.clientX, event.clientY);
     const hit = hitTest(doc, world);
 
-    if (tool === "pan" || event.button === 1 || event.shiftKey === false && tool === "pan") {
+    if (tool === "pan" || event.button === 1) {
       drag.current = { mode: "pan", startX: event.clientX, startY: event.clientY, origin: viewport };
       return;
     }
@@ -418,7 +426,7 @@ export function CanvasStage(props: CanvasStageProps) {
     tool === "pan" ? "grab" : tool === "select" ? "default" : tool === "eraser" ? "crosshair" : "crosshair";
 
   return (
-    <div className="relative flex-1 canvas-grid bg-paper">
+    <div className="relative h-full w-full overflow-hidden canvas-grid bg-paper">
       <svg
         ref={svgRef}
         role="application"
